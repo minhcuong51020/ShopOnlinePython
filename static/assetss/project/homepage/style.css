@@ -1,0 +1,127 @@
+*{
+  box-sizing: border-box;
+}
+
+img{
+  display: block;
+  width: 100%;
+  border-radius: 2px;
+  margin:0;
+}
+.section-center{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 16px;
+}
+.button{
+  margin-top: 16px;
+  margin-bottom: 16px;
+  padding: 8px 16px;
+  font-size: 14px;
+  background-color: var(--primary_color);
+  color: white;
+  width: 33.33333%;
+  text-align: center;
+}
+.button:hover{
+  background-color: var(--secondary_color);
+}
+#header{
+  z-index: 1000;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+#slider{
+  padding-top: 64px;
+  display: flex;
+  margin: 16px auto;
+  width: 1200px;
+  max-width: 1200px;
+}
+#slider a{
+  display: block;
+}
+
+#slider .slider-left{
+  display: flex;
+  flex: 2 1 0;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+#slider .panels-right{
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  margin-left: 4px;
+  overflow:hidden;
+}
+.panel + .panel{
+  margin-top: 4px;
+}
+.section-label{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 1200px;
+  background-color: white;
+  border-radius: 2px;
+  margin: 4px auto;
+  padding: 16px;
+  
+}
+
+
+#portfolio{
+  display: block;
+  width: 1200px;
+  margin: auto;
+  background-color: white;
+  border-radius: 2px;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+#portfolio .portfolio-row{
+  display: block;
+  
+}
+#portfolio .portfolio-row::after{
+  content: "";
+  display: block;
+  clear: both;
+}
+#portfolio .portfolio-item{
+  height: 130px;
+  max-height: 130px;
+  overflow: hidden;
+  justify-content: center;
+  align-items: center;
+  width: 10%;
+  font-size: 10px;
+  text-decoration: none;
+  color: black;
+  float: left;
+  border: 1px solid rgba(115, 149, 174, 0.5);
+  border-radius: 2px;
+}
+#portfolio .portfolio-item:hover{
+  border: 1px solid rgba(115, 149, 174, 1);
+  box-shadow: 0 5px 10px #ccc;
+}
+#portfolio .portfolio-item-image{
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+#portfolio .portfolio-item-img{
+  width: 83px;
+  height: 83px;
+  border-radius:50%;
+}
+#portfolio .portfolio-name{
+  font-size: 14px;
+  margin-top: 8px;
+  text-align: center;
+}
