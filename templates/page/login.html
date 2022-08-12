@@ -1,0 +1,87 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>READ LOVE</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <!-- Font awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+        integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;1,300;1,400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'assets/css/main.css'%}">
+    <link rel="shortcut icon" type="image/jpg" href="{% static 'assets/photo/ReadLovea.png '%}"/>
+</head>
+
+<body class="login">
+
+    <div class="container-fluid bg-1 text-center logo">
+        <img src="{% static 'assets/photo/ReadLoveOK.png' %}" alt="" style="width: 150px;">
+    </div>
+    <div class="content">
+        <form action="" method="post">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-sm-6">
+                    <h3 class="form-title">Đăng Nhập</h3>
+                </div>
+                <div id="error-message"
+					style="color: red; font-weight: 600; margin-bottom: 15px; padding: 10px 4px;" class="col-sm-6">
+				{{msg}}</div>
+            </div>
+
+            <div class="input-group form-group">
+                <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                <input id="usr" type="text" class="form-control" name="username" placeholder="Tài Khoản" required>
+            </div>
+
+            <div class="input-group form-group">
+                <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+                <input id="pwd" type="password" class="form-control" name="password" placeholder="Mật Khẩu" required>
+            </div>
+
+            <div class="form-actions">
+                <label><input type="checkbox" value=""> Nhớ tôi
+                </label>
+                <button type="submit" class="btn btn-primary pull-right">Đăng Nhập</button>
+            </div>
+        </form>
+        <div class="login-options">
+            <h4>
+                Hoặc đăng nhập với
+            </h4>
+            <div class="form-actions">
+                <img src="https://salt.tikicdn.com/ts/upload/3a/22/45/0f04dc6e4ed55fa62dcb305fd337db6c.png" alt=""
+                    style="width: 40px; padding-right: 10px;">
+                <img src="https://salt.tikicdn.com/ts/upload/1c/ac/e8/141c68302262747f5988df2aae7eb161.png" alt=""
+                    style="width: 50px;; padding-right: 10px;">
+                <img src="https://salt.tikicdn.com/ts/upload/98/37/86/517cfc05f04466b3118357a1fb4182c8.png" alt=""
+                    style="width: 35px;">
+            </div>
+        </div>
+
+        <div class="forget-password">
+            <div>
+                Quên Mật Khẩu?
+                <a href="" style="color: #315cc6;">Đặt Lại</a>
+            </div>
+        </div>
+
+        <div class="create-account">
+            <p>
+                Chưa Có Tài Khoản?
+                <a href="{% url 'register' %}" style="color: #315cc6;">Đăng Ký</a>
+            </p>
+        </div>
+    </div>
+</body>
+
+
+</html>

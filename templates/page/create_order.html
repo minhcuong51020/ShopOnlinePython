@@ -1,0 +1,247 @@
+{% load static %}
+{% load mathfilters %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>READ LOVE</title>
+	<link rel="shortcut icon" type="image/jpg" href="assets/photo/ReadLovea.png"/>
+	<link rel="stylesheet" href="{% static 'assets/cssss/style.css' %}">
+	<link rel="stylesheet" href="{% static 'assets/project/cart/style.css' %}">
+	<link rel="stylesheet" href="{% static 'assets/cssss/respondsive.css' %}">
+	<link rel="stylesheet" href="{% static 'assets/project/cart/respondsive.css' %}">
+	<link rel="stylesheet" href="{% static 'assets/project/order/style.css' %}">
+	<link rel="stylesheet" href="{% static 'assets/font/themify-icons/themify-icons.css' %}">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+		integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+		crossorigin="anonymous" />
+</head>
+
+<body>
+	<div id="main">
+		{% include 'page/header.html'%}
+		<div id="content">
+			<div class="empty-cart">
+				<h2 class="empty-cart-notice">Giỏ hàng trống</h2>
+				<a href="https://duc-ju.github.io/online-shop/" class="go-home-button">Về trang chủ</a>
+			</div>
+			<div class="cart-container">
+				<div class="mark-section">
+					<h2 class="content-title"><i class="fas fa-bullhorn"></i>  Đặt hàng</h2>
+				</div>
+				<div class="sub-nav">
+					<div class="sub-nav-title">
+						<h2 class="content-title">Sản phẩm</h2>
+					</div>
+					<div class="sub-nav-price">Giá</div>
+					<div class="sub-nav-action">Thao tác</div>
+				</div>
+
+				{% for item in listBook%}
+					<div class="book-item">
+						<a href="<%= request.getContextPath() %>/productdetail?type=bookitem&id=${item.getId()}"
+							class="book-image"> <img src="{{item.bookitemimg_set.all.first.image.url}}"
+							alt="Book-image" class="book-image-item">
+						</a>
+						<div class="book-properties">
+							<div class="book-title">{{item.hearder}}</div>
+						</div>
+						<div class="book-price">{{1|sub:item.discount|mul:item.price|floatformat:"0"}}đ</div>
+						<div class="book-action">
+							<a class="book-delete-button"
+								href="{% url 'delete_item_from_cart' 'bookitem' item.id %}">Xóa</a>
+						</div>
+					</div>
+				{% endfor %}
+				{% for item in listElectronic%}
+					<div class="book-item">
+						<a
+							href="<%= request.getContextPath() %>/productdetail?type=bookitem&id=${item.getId()}"
+							class="book-image"> <img src="{{item.electronicitemimg_set.all.first.image.url}}"
+							alt="Book-image" class="book-image-item">
+						</a>
+						<div class="book-properties">
+							<div class="book-title">{{item.header}}</div>
+						</div>
+						<div class="book-price">{{1|sub:item.discount|mul:item.price|floatformat:"0"}}đ</div>
+						<div class="book-action">
+							<a class="book-delete-button"
+								href="{% url 'delete_item_from_cart' 'electronicitem' item.id %}">Xóa</a>
+						</div>
+					</div>
+				{% endfor %}
+				{% for item in listShoes%}
+					<div class="book-item">
+						<a
+							href="<%= request.getContextPath() %>/productdetail?type=bookitem&id=${item.getId()}"
+							class="book-image"> <img src="{{item.shoesitemimg_set.all.first.image.url}}"
+							alt="Book-image" class="book-image-item">
+						</a>
+						<div class="book-properties">
+							<div class="book-title">{{item.header}}</div>
+						</div>
+						<div class="book-price">{{1|sub:item.discount|mul:item.price|floatformat:"0"}}đ</div>
+						<div class="book-action">
+							<a class="book-delete-button"
+								href="{% url 'delete_item_from_cart' 'shoesitem' item.id %}">Xóa</a>
+						</div>
+					</div>
+				{% endfor %}
+				<div class="cart-control">
+					<div class="cart-order">
+						<div class="cart-total-price">Tổng số sản phẩm: {{totalProduct}}</div>
+						<br>
+						<div class="cart-total-price">Tổng số tiền: {{totalPrice|floatformat:"0"}}đ</div>
+					</div>
+				</div>
+			</div>
+			<form action="" method="post">
+				{% csrf_token %}
+			<div class="order-container">
+				<div class="choose-address">
+					<h3 class="payment-title">Nhập thông tin vận chuyển</h3>
+					<div class="row">
+						<div class="col-3">
+							Nhập địa chỉ
+						</div>
+						<div class="col-9">
+							<input type="text" name="address" id="" placeholder="Địa chỉ" class="bg-gray" required>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-3">
+							Chọn phương thức vận chuyển
+						</div>
+						<div class="col-9">
+							<select name="shipmentType" id="shipmentType" class="bg-gray">
+								<option value="fast">Vận chuyển siêu tốc</option>
+								<option value="quick" selected>Vận chuyển nhanh</option>
+								<option value="normal">Vận chuyển tiết kiệm</option>
+							</select>
+						</div>
+					</div>
+					<div class="cart-control mt-16">
+						<div class="cart-order">
+							<div class="cart-total-price" id="shipment">Phí vận chuyển: <span id="shipping-fee-1">30.000đ</span></div>
+						</div>
+					</div>
+				</div>
+				<div class="choose-payment-method">
+					<h3 class="payment-title">Nhập thông tin thanh toán</h3>
+					<div class="row">
+						<div class="col-3">
+							Chọn phương thức thanh toán
+						</div>
+						<div class="col-9">
+							<select name="paymentMethod" id="paymentMethod" class="bg-gray">
+								<option value="cash">Thanh toán khi nhận hàng</option>
+							</select>
+						</div>
+					</div>
+				</div>
+
+				<div class="bg-white mt-16">
+					<div class="row">
+						<div class="col-6">
+
+						</div>
+						<div class="col-6">
+							<div class="row">
+								<div class="col-9">
+									<input type="text" style="width: 576px" name="discountID" class="bg-gray" id="discountName" placeholder="Nhập mã giảm giá" onblur="myFunction()">
+								</div>
+							</div>
+							<div class="order-info">
+								<div class="order-total-price">Tổng tiền hàng: {{totalPrice|floatformat:"0"}}đ</div>
+								<div class="order-ship-fee small" id="totalShipment">Phí vận chuyển: <span id="shipping-fee-2">30,000đ</span></div>
+								<div class="small" id="pricediscount"><span id="discountPercent"></span></div>
+								<div class="order-total-payment mt-32" id="totalAmount">Tổng thanh toán: <span id="total"></span></div>
+								<button type="submit" class="order-button pointer clear">Xác nhận đặt hàng</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+
+		</div>
+
+		{% include 'page/footer.html'%}
+	</div>
+	<script src="{% static 'assets/js/script.js' %}"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+	<script>
+		let amount = {{totalPrice}}
+		let shipmentType = document.getElementById("shipmentType")
+		let shipFee;
+		let sum;
+		let val = shipmentType.value
+		switch(val){
+			case "fast": shipFee = 50000; break;
+			case "quick": shipFee = 40000; break;
+			case "normal": shipFee = 30000; break;
+		}
+		document.getElementById("shipping-fee-1").innerText = String(shipFee).replace(/(.)(?=(\d{3})+$)/g,'$1,')+"đ";
+		document.getElementById("shipping-fee-2").innerText = String(shipFee).replace(/(.)(?=(\d{3})+$)/g,'$1,')+"đ";
+		sum = shipFee + amount;
+		document.getElementById("total").innerText = String(sum).replace(/(.)(?=(\d{3})+$)/g,'$1,')+"đ";
+
+		let x = 0;
+		function myFunction() {
+			var discountName = document.getElementById("discountName");
+		    $.ajax({
+		       url: "{% url 'discount' %}",
+		       type: "get", //send it through get method
+		       data: {
+		          exits: discountName.value
+		       },
+		       success: function (data) {
+		          var row = document.getElementById("discountPercent");
+		          while (row.lastElementChild) {
+		        	  row.removeChild(row.lastElementChild);
+		          }
+		          if(data == 0){
+		              row.innerHTML = "<span style='color: red;'>Mã giảm giá không hợp lệ!</span>";
+		              x = 0;
+		              let sum = amount - amount * x + shipFee;
+		        	  document.getElementById("total").innerText = String(sum).replace(/(.)(?=(\d{3})+$)/g,'$1,')+"đ";
+		          }else{
+		              x = parseFloat(data);
+		              let sum = amount - amount * x + shipFee;
+		        	  document.getElementById("total").innerText = String(sum).replace(/(.)(?=(\d{3})+$)/g,'$1,')+"đ";
+		        	  row.innerHTML = "<span>Bạn được giảm giá: " + x * 100 + "% </span>";
+		          }
+		       },
+		       error: function (xhr) {
+		          var row = document.getElementById("discountPercent");
+		          row.innerHTML = "<span style='color: red;'>Lỗi xác thực!</span>";
+		       }
+		    });
+		}
+
+
+		shipmentType.onchange = () =>{
+			let val = shipmentType.value
+			switch(val){
+				case "fast": shipFee = 50000; break;
+				case "quick": shipFee = 40000; break;
+				case "normal": shipFee = 30000; break;
+			}
+			document.getElementById("shipping-fee-1").innerText = String(shipFee).replace(/(.)(?=(\d{3})+$)/g,'$1,')+"đ";
+			document.getElementById("shipping-fee-2").innerText = String(shipFee).replace(/(.)(?=(\d{3})+$)/g,'$1,')+"đ";
+			sum = shipFee+amount - amount*x;
+			document.getElementById("total").innerText = String(sum).replace(/(.)(?=(\d{3})+$)/g,'$1,')+"đ";
+		}
+
+	</script>
+</body>
+
+</html>
+

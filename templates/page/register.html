@@ -1,0 +1,71 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>READ LOVE</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="shortcut icon" type="image/jpg" href="{% static 'assets/photo/ReadLovea.png' %}"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <!-- Font awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+    integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'assets/css/main.css' %}">
+</head>
+
+<body class="login">
+    <div class="container-fluid bg-1 text-center logo">
+        <img src="{% static 'assets/photo/ReadLoveOK.png' %}" alt="" style="width: 150px;' %}">
+    </div>
+    <div class="content" style="width: 500px;">
+        <form method="post" action="">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-sm-5">
+                    <h3 class="form-title">Đăng ký</h3>
+                </div>
+                <div id="error-message"
+					style="color: red; font-weight: 600; margin-bottom: 15px; padding: 10px 4px;" class="col-sm-7">
+				{{msg}}</div>
+            </div>
+
+            <div class="input-group form-group">
+                <span class="input-group-addon"><i class="fas fa-user-plus"></i></span>
+                <input id="firstname" type="text" class="form-control" name="firstname" placeholder="Họ" required>
+            </div>
+
+            <div class="input-group form-group">
+                <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                <input id="lastname" type="text" class="form-control" name="lastname" placeholder="Tên" required>
+            </div>
+
+            <div class="input-group form-group">
+                <span class="input-group-addon"><i class="fa fa-phone"></i></span>
+                <input id="phone" type="text" class="form-control" name="phone" placeholder="Điện Thoại" required>
+            </div>
+
+            <div class="input-group form-group">
+                <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                <input id="username" type="text" class="form-control" name="username" placeholder="Tài Khoản" required>
+            </div>
+
+            <div class="input-group form-group">
+                <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+                <input id="password" type="password" class="form-control" name="password" placeholder="Mật Khẩu" required>
+            </div>
+
+            <div class="input-group form-group">
+                <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+                <input id="rePassword" type="password" class="form-control" name="rePassword" placeholder="Nhập Lại Mật Khẩu" required>
+            </div>
+            <div class="form-actions">
+                <a href="{% url 'login' %}" class="btn btn-default">Đăng Nhập</a>
+                <button type="submit" class="btn btn-primary pull-right">Đăng Ký</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

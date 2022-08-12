@@ -1,0 +1,166 @@
+{% load static %}
+{% load mathfilters %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>READ LOVE</title>
+	<link rel="shortcut icon" type="image/jpg" href="assets/photo/ReadLovea.png"/>
+	<link rel="stylesheet" href="{% static 'assets/cssss/style.css' %}">
+	<link rel="stylesheet" href="{% static 'assets/project/cart/style.css' %}">
+	<link rel="stylesheet" href="{% static 'assets/cssss/respondsive.css' %}">
+	<link rel="stylesheet" href="{% static 'assets/project/cart/respondsive.css' %}">
+	<link rel="stylesheet" href="{% static 'assets/font/themify-icons/themify-icons.css' %}">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+		integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+		crossorigin="anonymous" />
+</head>
+
+<body>
+	<div id="main">
+	<div id="toast"></div>
+		<!-- header section -->
+		{% include 'page/header.html'%}
+		<div id="content">
+			<div class="empty-cart">
+				<h2 class="empty-cart-notice">Giỏ hàng trống</h2>
+				<a href="{% url 'index' %}"
+					class="go-home-button">Về trang chủ</a>
+			</div>
+			<div class="cart-container">
+				<div class="mark-section">
+					<h2 class="content-title">
+						<i class="fas fa-bullhorn"></i> Giỏ hàng
+					</h2>
+				</div>
+				<div class="sub-nav">
+					<div class="sub-nav-title">
+						<h2 class="content-title">Sản phẩm</h2>
+					</div>
+					<div class="sub-nav-price">Giá</div>
+					<div class="sub-nav-action">Thao tác</div>
+				</div>
+				{% for item in listBook%}
+					{% if item.isPay == False %}
+						<div class="book-item">
+						<a
+							href="<%= request.getContextPath() %>/productdetail?type=bookitem&id=${item.getId()}"
+							class="book-image"> <img src="{{item.bookitemimg_set.all.first.image.url}}"
+							alt="Book-image" class="book-image-item">
+						</a>
+						<div class="book-properties">
+							<div class="book-title">{{item.hearder}}</div>
+						</div>
+						<div class="book-price">{{1|sub:item.discount|mul:item.price|floatformat:"0"}}đ</div>
+						<div class="book-action">
+							<a class="book-delete-button"
+								href="{% url 'delete_item_from_cart' 'bookitem' item.id %}">Xóa</a>
+						</div>
+						</div>
+					{%else%}
+						<div class="book-item" style="background-color: #D3D3D3">
+						<a
+							href="<%= request.getContextPath() %>/productdetail?type=bookitem&id=${item.getId()}"
+							class="book-image"> <img src="{{item.bookitemimg_set.all.first.image.url}}"
+							alt="Book-image" class="book-image-item">
+						</a>
+						<div class="book-properties">
+							<div class="book-title">{{item.hearder}}</div>
+						</div>
+						<div class="book-price" style="color: red">Đã hết hàng!</div>
+						</div>
+					{% endif %}
+				{% endfor %}
+				{% for item in listElectronic%}
+					{% if item.isPay == False %}
+						<div class="book-item">
+						<a
+							href="<%= request.getContextPath() %>/productdetail?type=bookitem&id=${item.getId()}"
+							class="book-image"> <img src="{{item.bookitemimg_set.all.first.image.url}}"
+							alt="Book-image" class="book-image-item">
+						</a>
+						<div class="book-properties">
+							<div class="book-title">{{item.hearder}}</div>
+						</div>
+						<div class="book-price">{{1|sub:item.discount|mul:item.price|floatformat:"0"}}đ</div>
+						<div class="book-action">
+							<a class="book-delete-button"
+								href="{% url 'delete_item_from_cart' 'electronicitem' item.id %}">Xóa</a>
+						</div>
+						</div>
+					{%else%}
+						<div class="book-item" style="background-color: #D3D3D3">
+						<a
+							href="<%= request.getContextPath() %>/productdetail?type=bookitem&id=${item.getId()}"
+							class="book-image"> <img src="{{item.bookitemimg_set.all.first.image.url}}"
+							alt="Book-image" class="book-image-item">
+						</a>
+						<div class="book-properties">
+							<div class="book-title">{{item.hearder}}</div>
+						</div>
+						<div class="book-price" style="color: red">Đã hết hàng!</div>
+						</div>
+					{% endif %}
+				{% endfor %}
+				{% for item in listShoes%}
+					{% if item.isPay == False %}
+						<div class="book-item">
+						<a
+							href="<%= request.getContextPath() %>/productdetail?type=bookitem&id=${item.getId()}"
+							class="book-image"> <img src="{{item.bookitemimg_set.all.first.image.url}}"
+							alt="Book-image" class="book-image-item">
+						</a>
+						<div class="book-properties">
+							<div class="book-title">{{item.hearder}}</div>
+						</div>
+						<div class="book-price">{{1|sub:item.discount|mul:item.price|floatformat:"0"}}đ</div>
+						<div class="book-action">
+							<a class="book-delete-button"
+								href="{% url 'delete_item_from_cart' 'shoesitem' item.id %}">Xóa</a>
+						</div>
+						</div>
+					{%else%}
+						<div class="book-item" style="background-color: #D3D3D3">
+						<a
+							href="<%= request.getContextPath() %>/productdetail?type=bookitem&id=${item.getId()}"
+							class="book-image"> <img src="{{item.bookitemimg_set.all.first.image.url}}"
+							alt="Book-image" class="book-image-item">
+						</a>
+						<div class="book-properties">
+							<div class="book-title">{{item.hearder}}</div>
+						</div>
+						<div class="book-price" style="color: red">Đã hết hàng!</div>
+						</div>
+					{% endif %}
+				{% endfor %}
+				<div class="cart-control">
+					<div class="cart-order">
+						<div class="cart-total-price">Tổng số sản phẩm: {{totalProduct}}</div>
+						<br>
+						<div class="cart-total-price">Tổng số tiền: {{totalPrice|floatformat:"0"}}đ</div>
+						<a href="{% url 'create_order' %}" class="cart-order-button pointer">Đặt hàng</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		{% include 'page/footer.html'%}
+	</div>
+	<script src="{% static 'assets/js/script.js' %}"></script>
+	<script src="{% static 'assets/project/cart/script.js' %}"></script>
+
+	{%if kt == 1 %}
+		<script>
+			showSuccessToast("Xóa sản phẩm thành công!");
+		</script>
+	{% endif %}
+
+
+</body>
+
+</html>

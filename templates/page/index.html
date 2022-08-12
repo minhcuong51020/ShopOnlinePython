@@ -1,0 +1,276 @@
+{% load static %}
+{% load mathfilters %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>READ LOVE</title>
+<link rel="shortcut icon" type="image/jpg"
+	href="{% static 'assets/photo/ReadLovea.png' %}" />
+<link rel="stylesheet" href="{% static 'assets/cssss/style.css' %}">
+<link rel="stylesheet" href="{% static 'assets/project/homepage/style.css' %}">
+<link rel="stylesheet" href="{% static 'assets/cssss/respondsive.css' %}">
+<link rel="stylesheet" href="{% static 'assets/project/homepage/respondsive.css' %}">
+<link rel="stylesheet"
+	href="{% static 'assets/font/themify-icons/themify-icons.css' %}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+	href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;500;600;700;800;900&display=swap"
+	rel="stylesheet">
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script
+	src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+	integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+	crossorigin="anonymous" />
+<script>
+	$(document).ready(function() {
+		$('.slider').bxSlider({
+			auto : true,
+			pause : 6000
+		});
+	});
+</script>
+
+<style>
+	#portfolio .portfolio-item {
+		height: 38px;
+	}
+
+	.fa-list:before {
+		margin-right: 8px;
+	}
+</style>
+
+</head>
+
+<body>
+	<div id="toast"></div>
+	<div id="main">
+		<!-- header section -->
+		{% include 'page/header.html'%}
+		<!-- slider section -->
+		<div id="slider">
+			<div class="slider-left">
+				<div class="slider">
+					<div class="slider-item">
+						<a href="#"><img
+							src="https://newshop.vn/public/uploads/options/sachmoinewshop.jpg"
+							alt="" class=""></a>
+					</div>
+					<div class="slider-item">
+						<a href="#"><img
+							src="https://newshop.vn/public/uploads/options/tusachlamchame.jpg"
+							alt="" class=""></a>
+					</div>
+					<div class="slider-item">
+						<a href="#"><img
+							src="https://newshop.vn/public/uploads/options/sachchobe.jpg"
+							alt="" class=""></a>
+					</div>
+				</div>
+			</div>
+			<div class="panels-right">
+				<div class="panel">
+					<a href="#"><img style="width: 400px; height: 119px"
+						src="https://cf.shopee.vn/file/725fa7683441e358a520376d08bfcdd5_xhdpi"
+						alt="" class="slider-item-img"></a>
+				</div>
+				<div class="panel">
+					<a href="#"><img style="width: 400px; height: 119px;"
+						src="https://cf.shopee.vn/file/e7c37ee3d70fc5e75ecd77a063f9bac6_xhdpi"
+						alt="" class="slider-item-img"></a>
+				</div>
+			</div>
+		</div>
+		<!-- portfolio section -->
+		<h3 class="section-label">DANH MỤC SẢN PHẨM</h3>
+		<div id="portfolio">
+			<div class="portfolio-row">
+				<a href="<%=request.getContextPath()%>/Category?id=${category.getId()}" class="portfolio-item">
+						<h3 class="portfolio-name">Sách</h3>
+				</a>
+				<a href="<%=request.getContextPath()%>/Category?id=${category.getId()}" class="portfolio-item">
+						<h3 class="portfolio-name">Đồ điện tử</h3>
+				</a>
+				<a href="<%=request.getContextPath()%>/Category?id=${category.getId()}" class="portfolio-item">
+						<h3 class="portfolio-name">Giày</h3>
+				</a>
+			</div>
+		</div>
+		<!-- Book item -->
+		<h3 class="section-label mt-32">
+			<div class="sale-label">Sách</div>
+			<a href="{% url 'product' 'bookitem' %}"
+				class="label-direction">Xem tất cả <i class="fas fa-angle-right"></i></a>
+		</h3>
+		<div id="saleBook" class="content-section">
+				<div class="row-item">
+					{% for item in listBook %}
+						<div class="item item-col-2">
+							<div class="item-container">
+								<a href="<%= request.getContextPath() %>/product?id=${item.getId()}"
+									class="item-image"> <img src="{{item.bookitemimg_set.all.first.image.url}}"
+									alt="" class="item-img">
+								</a>
+								<div class="item-content">
+									<h2 class="item-name">
+										{% if item.hearder|length > 40 %}
+											{{ item.hearder|truncatechars:40 }}
+										{%else%}
+											{{item.hearder}}
+										{% endif %}
+									</h2>
+									{% if item.discount|mul:100 >= 1 %}
+											<div class="item-old-price">
+												{{item.price|floatformat:"0"}}đ
+											</div>
+									{% else %}
+										<div class="item-old-price" style='color: white'>&nbsp;</div>
+									{% endif %}
+									<div class="item-info">
+										{% if item.discount|mul:100 >= 1 %}
+											<div class="item-discount">
+												{{item.discount|mul:100|floatformat:"0"}}% Giảm
+											</div>
+										{% endif %}
+										<div class="item-content-section">
+											<div class="item-price">
+												{{1|sub:item.discount|mul:item.price|floatformat:"0"}}đ
+											</div>
+											<a href="{% url 'add_item_to_cart' 'bookitem' item.id %}" class="item-add-button">Thêm vào giỏ</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					{% endfor %}
+				</div>
+		</div>
+		<br>
+		<h3 class="section-label mt-32">
+			<div class="sale-label">Đồ điện tử</div>
+			<a href="{% url 'product' 'bookitem' %}"
+				class="label-direction">Xem tất cả <i class="fas fa-angle-right"></i></a>
+		</h3>
+		<div id="saleElectronic" class="content-section">
+				<div class="row-item">
+					{% for item in listElectronic %}
+						<div class="item item-col-2">
+							<div class="item-container">
+								<a href="<%= request.getContextPath() %>/product?id=${item.getId()}"
+									class="item-image"> <img src="{{item.electronicitemimg_set.all.first.image.url}}"
+									alt="" class="item-img">
+								</a>
+								<div class="item-content">
+									<h2 class="item-name">
+										{% if item.header|length > 40 %}
+											{{ item.header|truncatechars:40 }}
+										{%else%}
+											{{item.header}}
+										{% endif %}
+									</h2>
+									{% if item.discount|mul:100 >= 1 %}
+											<div class="item-old-price">
+													{{item.price|floatformat:"0"}}đ
+											</div>
+									{% else %}
+										<div class="item-old-price" style='color: white'>&nbsp;</div>
+									{% endif %}
+									<div class="item-info">
+										{% if item.discount|mul:100 >= 1 %}
+											<div class="item-discount">
+												{{item.discount|mul:100|floatformat:"0"}}% Giảm
+											</div>
+										{% endif %}
+										<div class="item-content-section">
+											<div class="item-price">
+												{{1|sub:item.discount|mul:item.price|floatformat:"0"}}đ
+											</div>
+											<a href="{% url 'add_item_to_cart' 'electronicitem' item.id %}"
+												class="item-add-button">Thêm vào giỏ</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					{% endfor %}
+				</div>
+		</div>
+		<br>
+		<h3 class="section-label mt-32">
+			<div class="sale-label">Giày</div>
+			<a href="{% url 'product' 'bookitem' %}"
+				class="label-direction">Xem tất cả <i class="fas fa-angle-right"></i></a>
+		</h3>
+		<div id="saleShoes" class="content-section">
+				<div class="row-item">
+					{% for item in listShoes %}
+						<div class="item item-col-2">
+							<div class="item-container">
+								<a href="<%= request.getContextPath() %>/product?id=${item.getId()}"
+									class="item-image"> <img src="{{item.shoesitemimg_set.all.first.image.url}}"
+									alt="" class="item-img">
+								</a>
+								<div class="item-content">
+									<h2 class="item-name">
+										{% if item.header|length > 40 %}
+											{{ item.header|truncatechars:40 }}
+										{%else%}
+											{{item.header}}
+										{% endif %}
+									</h2>
+									{% if item.discount|mul:100 >= 1 %}
+											<div class="item-old-price">
+												{{item.price|floatformat:"0"}}đ
+											</div>
+									{% else %}
+										<div class="item-old-price" style='color: white'>&nbsp;</div>
+									{% endif %}
+									<div class="item-info">
+										{% if item.discount|mul:100 >= 1 %}
+											<div class="item-discount">
+												{{item.discount|mul:100|floatformat:"0"}}% Giảm
+											</div>
+										{% endif %}
+										<div class="item-content-section">
+											<div class="item-price">
+												{{1|sub:item.discount|mul:item.price|floatformat:"0"}}đ
+											</div>
+											<a href="{% url 'add_item_to_cart' 'shoesitem' item.id %}"
+												class="item-add-button">Thêm vào giỏ</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					{% endfor %}
+				</div>
+		</div>
+		<br>
+		{% include 'page/footer.html'%}
+		<!-- script -->
+
+		<script src="{% static 'assets/js/script.js' %}"></script>
+		<script src="{% static 'assets/project/homepage/script.js' %}"></script>
+
+		{% if kt == 1 %}
+			<script>
+				showSuccessToast("Thêm sản phẩm thành công!");
+			</script>
+		{% endif %}
+		{% if kt == 2 %}
+			<script>
+				showSuccessToast("Sản phẩm đã tồn tại trong giỏ hàng!");
+			</script>
+		{% endif %}
+</body>
+</html>

@@ -1,0 +1,48 @@
+{% load static %}
+
+<header id="header">
+
+			<div class="nav">
+				<ul class="control">
+					{% if user.id is not None %}
+						<li class="control-item">
+							<a href="<%= request.getContextPath() %>/profile">
+								<i class="ti-user"> </i>
+								{{user.username}}
+							</a>
+						</li>
+					{% endif %}
+
+					<li class="control-item"><a href="{% url 'index' %}">Trang chủ</a></li>
+					{% if user.id is None %}
+						<li class="control-item" id="login"><a href="{% url 'login' %}">Đăng nhập</a></li>
+						<li class="control-item" id="register"><a href="{% url 'register' %}">Đăng kí</a></li>
+					{% endif %}
+
+					{% if user.id is not None %}
+						<li class="control-item" id="logout"><a href="{% url 'logout' %}">Đăng xuất</a></li>
+					{% endif %}
+				</ul>
+			</div>
+
+			<a href="{% url 'index' %}">
+				<div class="brand-logo"><img src="{% static 'assets/photo/ReadLoveOK.png' %}" alt=""></div>
+			</a>
+
+	<form method="get" action=""
+		class="search">
+		<input type="text" name="search" placeholder="Nhập tên sản phẩm"
+			id="search-product-name"> <input type="submit"
+			value="Tìm kiếm" id="submit-button">
+	</form>
+
+	{% if user.id is not None %}
+		<a href="{% url 'cart' %}">
+			<div
+				class="cart">
+				<div class="quantity">{{cart.quantity}}</div>
+				<i class="ti-shopping-cart cart-icon"></i>
+			</div>
+		</a>
+	{% endif %}
+</header>
